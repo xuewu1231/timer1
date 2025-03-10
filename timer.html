@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>计时器</title>
+</head>
+
+<body>
+    <h1 id="timer">00:00:00:000</h1>
+    <button id="start">开始</button>
+    <button id="pause">暂停</button>
+    <button id="reset">重置</button>
+    <button id="record">计次</button>
+    <button id="set">设置</button>
+
+    <script>
+        let timer = document.getElementById('timer');
+        let startButton = document.getElementById('start');
+        let pauseButton = document.getElementById('pause');
+        let resetButton = document.getElementById('reset');
+        let recordButton = document.getElementById('record');
+        let setButton = document.getElementById('set');
+
+        let startTime, updatedTime, difference, hours, minutes, seconds, milliseconds;
+        let tInterval;
+
+        function startTimer() {
+            startTime = new Date().getTime();
+            tInterval = setInterval(getShowTime, 1);
+        }
+
+        function pauseTimer() {
+            clearInterval(tInterval);
+        }
+
+        function resetTimer() {
+            clearInterval(tInterval);
+            timer.innerHTML = '00:00:00:000';
+        }
+
+        function recordTime() {
+            let record = document.createElement('p');
+            record.innerHTML = timer.innerHTML;
+            document.body.appendChild(record);
+        }
+
+        function getShowTime() {
+            updatedTime = new Date().getTime();
+            difference = updatedTime - startTime;
+            hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            milliseconds = difference % 1000;
+            timer.innerHTML = hours + ':' + minutes + ':' + seconds + ':' + milliseconds;
+        }
+
+        startButton.addEventListener('click', startTimer);
+        pauseButton.addEventListener('click', pauseTimer);
+        resetButton.addEventListener('click', resetTimer);
+        recordButton.addEventListener('click', recordTime);
+    </script>
+</body>
+
+</html>
