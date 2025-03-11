@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>计时器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="theme-toggle" onclick="toggleTheme()">🌓</div>
+    <div id="timer-container">
+        <h1 id="timer">00:00:00:000</h1>
+        <div id="target-time" class="target-time"></div>
+        <div class="button-container">
+            <button id="start">开始</button>
+            <button id="pause">暂停</button>
+            <button id="reset">重置</button>
+            <button id="record">计次</button>
+            <button id="set">设置</button>
+        </div>
+        <div class="toolbar">
+            <button id="export">导出记录</button>
+            <button id="clear">清除记录</button>
+            <button id="help">帮助</button>
+            <button id="settings">⚙️ 设置</button>
+        </div>
+        <div class="share-buttons">
+            <button class="share-button wechat">分享到微信</button>
+            <button class="share-button weibo">分享到微博</button>
+            <button class="share-button qq">分享到QQ</button>
+        </div>
+        <div class="stats">
+            <div class="stat-card">
+                <div>最快时间</div>
+                <div class="stat-value" id="best-time">--:--:--</div>
+            </div>
+            <div class="stat-card">
+                <div>平均时间</div>
+                <div class="stat-value" id="avg-time">--:--:--</div>
+            </div>
+            <div class="stat-card">
+                <div>计次次数</div>
+                <div class="stat-value" id="record-count">0</div>
+            </div>
+            <div class="stat-card">
+                <div>总计时长</div>
+                <div class="stat-value" id="total-time">00:00:00</div>
+            </div>
+        </div>
+    </div>
+    <div id="records"></div>
+
+    <div class="shortcut-hint">
+        快捷键: <br>
+        S - 开始/继续<br>
+        P - 暂停<br>
+        R - 重置<br>
+        L - 计次<br>
+        H - 显示/隐藏帮助<br>
+        T - 切换主题<br>
+        O - 打开设置<br>
+        C - 清除记录<br>
+        E - 导出记录
+    </div>
+
+    <div class="settings-panel" id="settings-panel">
+        <h3>设置</h3>
+        <div class="settings-group">
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="sound-enabled"> 启用音效
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="auto-save"> 自动保存记录
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>
+                    <input type="checkbox" id="show-milliseconds"> 显示毫秒
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>目标时间提醒：</label>
+                <input type="time" id="target-time-input" step="1">
+            </div>
+            <div class="setting-item">
+                <label>提醒音量：</label>
+                <input type="range" id="volume-control" min="0" max="100" value="50">
+            </div>
+            <div class="setting-item">
+                <label>字体大小：</label>
+                <select id="font-size">
+                    <option value="normal">正常</option>
+                    <option value="large">大</option>
+                    <option value="small">小</option>
+                </select>
+            </div>
+        </div>
+        <div class="settings-buttons">
+            <button onclick="saveSettings()">保存</button>
+            <button onclick="closeSettings()">关闭</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="notification" id="notification"></div>
+
+    <audio id="click-sound"
+        src="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAUAAAiSAAYGBgYJCQkJCQwMDAwMDw8PDw8SEhISEhUVFRUVGBgYGBgbGxsbGx4eHh4eISEhISEkJCQkJCcnJycnKioqKiotLS0tLTAwMDAwMzMzMzM2NjY2Njk5OTk5PT09PT0//////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAIkjG+JHMAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV"
+        preload="auto"></audio>
+    <audio id="complete-sound"
+        src="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAUAAAiSAAYGBgYJCQkJCQwMDAwMDw8PDw8SEhISEhUVFRUVGBgYGBgbGxsbGx4eHh4eISEhISEkJCQkJCcnJycnKioqKiotLS0tLTAwMDAwMzMzMzM2NjY2Njk5OTk5PT09PT0//////////8AAAAATGF2YzU4LjU0AAAAAAAAAAAAAAAAJAAAAAAAAAAAIkjG+JHMAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV"
+        preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
